@@ -1,0 +1,10 @@
+services:
+  # O nome do nosso serviço
+  app-react:
+    # Construir a imagem usando o Dockerfile no diretório atual (.)
+    build: .
+    # Nome do contêiner para fácil identificação
+    container_name: meu-projeto-faculdade
+    # Mapear a porta 8080 do SEU PC (fora) para a porta 80 do NGINX (dentro)
+    ports:
+      - "8080:80"

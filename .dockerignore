@@ -1,0 +1,11 @@
+# Ignora as dependências locais (essencial!)
+node_modules
+
+# Ignora os próprios arquivos Docker
+Dockerfile
+compose.yml
+
+# Ignora build local, logs, etc.
+dist
+.vite
+npm-debug.log
