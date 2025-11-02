@@ -23,7 +23,7 @@ function App() {
         </button>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Rick é viado
       </p>
     </>
   )
