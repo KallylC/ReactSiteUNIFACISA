@@ -1,3 +1,4 @@
+require('dotenv').config(); // 1. Carrega as variáveis do arquivo .env
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -6,17 +7,19 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 1. Conexão com MongoDB (Local ou Atlas)
-// Se usar Docker depois, mudaremos 'localhost' para 'mongo'
-mongoose.connect('mongodb://localhost:27017/refugioapp')
+// 2. Conexão com MongoDB (Atlas ou Local)
+// Ele tenta pegar do arquivo .env, se não achar, tenta local (bom para não quebrar se a internet cair)
+const mongoURI = process.env.MONGO_URI || 'mongodb+srv://kallyl:kallyl321@cluster0.jllcyqs.mongodb.net/refugioapp';
+
+mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB Conectado!'))
     .catch(err => console.error('Erro ao conectar Mongo:', err));
 
-// 2. Modelos (Schemas)
+// 3. Modelos (Schemas)
 const VoluntarioSchema = new mongoose.Schema({
     nome: String,
     email: String,
-    opcao: String, // transporte, doacao, etc.
+    opcao: String,
     mensagem: String,
     data: { type: Date, default: Date.now }
 });
@@ -24,7 +27,7 @@ const VoluntarioSchema = new mongoose.Schema({
 const UsuarioSchema = new mongoose.Schema({
     nome: String,
     email: { type: String, unique: true },
-    senha: String, // Em produção real, usaria bcrypt para criptografar
+    senha: String, 
     nacionalidade: String,
     necessidades: String
 });
@@ -32,7 +35,7 @@ const UsuarioSchema = new mongoose.Schema({
 const Voluntario = mongoose.model('Voluntario', VoluntarioSchema);
 const Usuario = mongoose.model('Usuario', UsuarioSchema);
 
-// 3. Rotas
+// 4. Rotas
 
 // --- VOLUNTÁRIOS ---
 // Salvar voluntário
@@ -91,6 +94,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Servidor rodando na porta 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });

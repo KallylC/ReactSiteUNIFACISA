@@ -4,8 +4,10 @@ import { HandHeart, Car, House, FileText } from "@phosphor-icons/react";
 export default function VolunteersList() {
     const [volunteers, setVolunteers] = useState([]);
 
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
     useEffect(() => {
-        fetch('http://localhost:3000/api/voluntarios')
+        fetch(`${apiUrl}/api/voluntarios`)
             .then(res => res.json())
             .then(data => setVolunteers(data))
             .catch(err => console.error(err));

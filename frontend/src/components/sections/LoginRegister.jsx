@@ -13,9 +13,10 @@ export default function LoginRegister({ onLogin, onClose }) {
         e.preventDefault();
         setError('');
         const endpoint = isLogin ? '/api/login' : '/api/register';
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
         
         try {
-            const res = await fetch(`http://localhost:3000${endpoint}`, {
+            const res = await fetch(`${apiUrl}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

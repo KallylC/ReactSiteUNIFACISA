@@ -7,7 +7,7 @@ export default function VolunteerForm() {
         opcao: '',
         mensagem: ''
     });
-    const [status, setStatus] = useState(''); // Para mostrar mensagem de sucesso ou erro
+    const [status, setStatus] = useState(''); 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,9 +17,11 @@ export default function VolunteerForm() {
         e.preventDefault();
         setStatus('Enviando...');
 
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
         try {
             // Conecta com o backend na porta 3000
-            const response = await fetch('http://localhost:3000/api/voluntarios', {
+            const response = await fetch(`${apiUrl}/api/voluntarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
