@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
-export default function Header() {
-  const [activeLang, setActiveLang] = useState('pt');
+export default function Header({ user, onLogout, onOpenLogin, onOpenProfile }) {
 
   return (
     <header className="header" role="banner">
@@ -19,23 +16,22 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          <div className="lang-switch">
-            <button 
-              className={`lang ${activeLang === 'pt' ? 'active' : ''}`} 
-              onClick={() => setActiveLang('pt')}
-            >🇧🇷</button>
-            <button 
-              className={`lang ${activeLang === 'en' ? 'active' : ''}`} 
-              onClick={() => setActiveLang('en')}
-            >🇺🇸</button>
-            <button 
-              className={`lang ${activeLang === 'es' ? 'active' : ''}`} 
-              onClick={() => setActiveLang('es')}
-            >🇸🇦</button>
-          </div>
-
-          <a className="btn btn-ghost" href="#entrar">Entrar</a>
-          <a className="btn btn-primary" href="#relatar">Relatar</a>
+          {/* Lógica de Usuário */}
+          {user ? (
+             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.9rem', whiteSpace: 'nowrap' }}>Olá, {user.nome}</span>
+                
+                {/* BOTÃO PERFIL AGORA ABRE O MODAL */}
+                <button className="btn btn-primary" onClick={onOpenProfile}>Perfil</button>
+                
+                <button className="btn btn-ghost" onClick={onLogout}>Sair</button>
+             </div>
+           ) : (
+             <>
+               <button className="btn btn-ghost" onClick={onOpenLogin}>Entrar</button>
+               <a className="btn btn-primary" href="#relatar">Relatar</a>
+             </>
+           )}
         </div>
       </div>
     </header>
