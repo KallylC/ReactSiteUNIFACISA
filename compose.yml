@@ -1,6 +1,0 @@
-services:
-  app-react:
-    build: .
-    container_name: meu-projeto-faculdade
-    ports:
-      - "8080:80"
