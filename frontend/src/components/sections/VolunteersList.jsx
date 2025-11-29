@@ -11,7 +11,7 @@ export default function VolunteersList() {
             .then(res => res.json())
             .then(data => setVolunteers(data))
             .catch(err => console.error(err));
-    }, []);
+    }, [apiUrl]);
 
     // Função para escolher ícone baseado na opção
     const getIcon = (type) => {
